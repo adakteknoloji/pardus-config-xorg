@@ -1,0 +1,7 @@
+f45f070062b4e40ad9f93e7e39c86561  opt/pardus-config-xorg/xorg.conf_fglrx
+219269397d4dea6d6277e5638fa0a46d  opt/pardus-config-xorg/xorg.conf_nvidia
+a5d91eb0733c4d009551f78a95a92857  opt/pardus-config-xorg/xorg.conf_common
+7e5b152fcf63f8dab71a695d1dbe01fa  opt/pardus-config-xorg/current
+5f7fcc0a40d764c345e47fcad52d5be1  opt/pardus-config-xorg/xorg.conf_mesa
+a97998d1796f7fb567e99cdd844769e6  etc/init.d/pardus-xorg-conf
+a4795aa58884e8c38f4c7ad5ffe052f5  usr/share/applications/amdcccle.desktop

@@ -1,0 +1,17 @@
+#!/bin/sh
+# postinst script for pardus-config
+#
+
+set -e
+
+case "$1" in
+    configure)
+        update-rc.d pardus-xorg-conf defaults
+        ;;
+
+    *)
+        ;;
+esac
+
+exit 0
+

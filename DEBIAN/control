@@ -1,0 +1,11 @@
+Package: pardus-config-xorg
+Version: 2012-1
+Architecture: all
+Maintainer: Cavit VURAL <cavit.vural@adak.com.tr>
+Installed-Size: 80
+Depends: grub-common
+Replaces:  fglrx-control, pardus-config
+Section: admin
+Priority: optional
+Description: Pardus Xorg Configuration
+ This package includes Pardus Xorg Configuration files and scripts

@@ -1,0 +1,8 @@
+# Pardus fglrx xorg configuration
+#
+
+Section "Device"
+    Identifier  "aticonfig-Device[0]-0"
+    Driver      "fglrx"
+EndSection
+

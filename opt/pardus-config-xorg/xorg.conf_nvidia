@@ -1,0 +1,9 @@
+# Pardus nvidia xorg configuration
+#
+
+Section "Device"
+    Identifier     "Device0"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+EndSection
+

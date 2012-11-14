@@ -1,0 +1,82 @@
+#!/bin/sh
+# Create or delete xorg.conf
+#
+### BEGIN INIT INFO
+# Provides:	xorg.conf
+# Required-Start:	$remote_fs
+# Required-Stop:	$remote_fs
+# Default-Start:	S
+# Default-Stop:		0 1 6
+# Short-Description: Creates or deletes xorg.conf for Pardus
+# Description:       Checks lspci and decides the driver to use
+#                    NVidia , AMD or open source 
+#                    Also selects glx by update-alternatives
+### END INIT INFO
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DESC="Pardus Xorg Configuration"
+NAME=pardus-xorg-conf
+SCRIPTNAME=/etc/init.d/"$NAME"
+CURRENT=`cat /opt/pardus-config-xorg/current`
+
+
+SET_MESA ()
+{
+    if ! [ "$CURRENT" = "mesa" ]
+    then
+        savelog /etc/X11/xorg.conf
+        cat /opt/pardus-config-xorg/xorg.conf_mesa /opt/pardus-config-xorg/xorg.conf_common > /etc/X11/xorg.conf
+        update-alternatives --set glx /usr/lib/mesa-diverted
+        echo "mesa" > /opt/pardus-config-xorg/current
+    fi
+    exit 0
+}
+
+SET_NVIDIA ()
+{
+    if ! [ "$CURRENT" = "nvidia" ]
+    then
+        savelog /etc/X11/xorg.conf
+        cat /opt/pardus-config-xorg/xorg.conf_nvidia /opt/pardus-config-xorg/xorg.conf_common > /etc/X11/xorg.conf
+        update-alternatives --set glx /usr/lib/nvidia
+        echo "nvidia" > /opt/pardus-config-xorg/current
+    fi
+    exit 0
+}
+
+SET_FGLRX ()
+{
+    if ! [ "$CURRENT" = "fglrx" ]
+    then
+        savelog /etc/X11/xorg.conf
+        cat /opt/pardus-config-xorg/xorg.conf_fglrx /opt/pardus-config-xorg/xorg.conf_common > /etc/X11/xorg.conf
+        update-alternatives --set glx /usr/lib/fglrx
+        echo "fglrx" > /opt/pardus-config-xorg/current
+    fi
+    exit 0
+}
+
+if grep VGA /proc/cmdline;then
+    SET_MESA
+fi
+
+if lspci | grep VGA | grep -q AMD ;then
+    if  [ -d /usr/lib/fglrx ]
+    then
+        SET_FGLRX
+    else
+        SET_MESA
+    fi
+    exit 0
+fi
+
+if lspci | grep VGA | grep -q NVIDIA ;then
+    if [ -d /usr/lib/nvidia ]
+    then
+        SET_NVIDIA
+    else 
+        SET_MESA
+    fi
+fi
+
+SET_MESA()
