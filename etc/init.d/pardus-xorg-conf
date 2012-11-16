@@ -56,6 +56,10 @@ SET_FGLRX ()
     exit 0
 }
 
+if grep gfxpayload /proc/cmdline;then
+    SET_MESA
+fi
+
 if grep VGA /proc/cmdline;then
     SET_MESA
 fi

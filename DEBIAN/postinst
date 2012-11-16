@@ -7,6 +7,7 @@ set -e
 case "$1" in
     configure)
         update-rc.d pardus-xorg-conf defaults
+        update-initramfs -u 
         ;;
 
     *)
